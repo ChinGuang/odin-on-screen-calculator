@@ -15,9 +15,16 @@ const displayOperatorComponent = document.querySelector('#display-operator');
  * @param {number} num - Digit to append to the active operand (0–9).
  */
 function insertNumber(num) {
-    if (calculatorMemory.operation === undefined) {
+
+
+    if (calculatorMemory.operation === undefined && calculatorMemory.firstNumber != Infinity.toString()) {
         calculatorMemory.firstNumber = (+(calculatorMemory.firstNumber + num)).toString();
         setDisplayNumber(calculatorMemory.firstNumber);
+    } else if (calculatorMemory.firstNumber == Infinity.toString()) {
+        calculatorMemory.firstNumber = num.toString();
+        setDisplayNumber(calculatorMemory.firstNumber);
+        calculatorMemory.operation = undefined;
+        setDisplayOperator();
     } else {
         calculatorMemory.secondNumber = (+(calculatorMemory.secondNumber + num)).toString();
         setDisplayNumber(calculatorMemory.secondNumber);
@@ -34,6 +41,7 @@ function insertNumber(num) {
  * @param {string} operator - The operator input (one of CalculatorSystem.CalculatorOperation or CalculatorSystem.CalculatorOperationUI).
  */
 function insertOperator(operator) {
+    if (calculatorMemory.firstNumber == Infinity.toString() && operator != "CLEAR") return;
     if (operator == CalculatorSystem.CalculatorOperation.EQUAL && calculatorMemory.operation == CalculatorSystem.CalculatorOperation.EQUAL) return;
     switch (operator) {
         case CalculatorSystem.CalculatorOperation.EQUAL:
@@ -59,7 +67,7 @@ function insertOperator(operator) {
                 calculatorMemory.secondNumber = ''
                 setDisplayNumber(calculatorMemory.firstNumber);
             }
-            calculatorMemory.operation = CalculatorSystem.CalculatorOperationUIToSystemMapping[operator];
+            calculatorMemory.operation = calculatorMemory.firstNumber != Infinity.toString() ? CalculatorSystem.CalculatorOperationUIToSystemMapping[operator] : undefined;
             setDisplayOperator();
             break;
     }
