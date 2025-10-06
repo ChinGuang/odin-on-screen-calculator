@@ -36,7 +36,7 @@ function insertNumber(num) {
 function insertOperator(operator) {
     switch (operator) {
         case CalculatorSystem.CalculatorOperation.EQUAL:
-            calculatorMemory.firstNumber = (+(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber))).toString() ?? '';
+            calculatorMemory.firstNumber = operateFirstNumber();
             calculatorMemory.operation = undefined;
             calculatorMemory.secondNumber = ''
             setDisplayNumber(calculatorMemory.firstNumber);
@@ -50,7 +50,7 @@ function insertOperator(operator) {
         case CalculatorSystem.CalculatorOperationUI.MUL:
         case CalculatorSystem.CalculatorOperationUI.DIV:
             if (!!calculatorMemory.operation) {
-                calculatorMemory.firstNumber = (+(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber))).toString() ?? '';
+                calculatorMemory.firstNumber = operateFirstNumber();
                 calculatorMemory.secondNumber = ''
                 setDisplayNumber(calculatorMemory.firstNumber);
             }
@@ -77,6 +77,10 @@ function setDisplayNumber(numberStr) {
  */
 function setDisplayOperator() {
     displayOperatorComponent.textContent = CalculatorSystem.CalculatorOperationUIMapping[calculatorMemory.operation] ?? '';
+}
+
+function operateFirstNumber() {
+    return (+(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber)))?.toString() ?? ''
 }
 
 const digitButtons = document.querySelectorAll(".digit-button");
