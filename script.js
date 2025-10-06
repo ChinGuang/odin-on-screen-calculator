@@ -21,6 +21,10 @@ function insertNumber(num) {
 function insertOperator(operator) {
     switch (operator) {
         case CalculatorSystem.CalculatorOperation.EQUAL:
+            calculatorMemory.firstNumber = +(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber)) ?? '';
+            calculatorMemory.operation = undefined;
+            calculatorMemory.secondNumber = ''
+            setDisplayOperator();
             break;
         case CalculatorSystem.CalculatorOperation.CLEAR:
             break;

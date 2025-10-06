@@ -17,13 +17,13 @@ function divide(num1, num2) {
 function operate(operator, num1, num2) {
     switch (operator) {
         case CalculatorOperation.ADD:
-            return add(num1, num2);
+            return add(+num1, +num2);
         case CalculatorOperation.SUB:
-            return subtract(num1, num2);
+            return subtract(+num1, +num2);
         case CalculatorOperation.MUL:
-            return multiply(num1, num2);
+            return multiply(+num1, +num2);
         case CalculatorOperation.DIV:
-            return divide(num1, num2);
+            return divide(+num1, +num2);
         default:
             throw new Error("Invalid Calculator Operation ", operator);
     }

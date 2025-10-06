@@ -68,7 +68,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    direction: rtl;
     /* puts "..." on the left side */
     text-align: right;
     /* keeps digits visually aligned to the right */
