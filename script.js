@@ -29,19 +29,10 @@ function insertOperator(operator) {
         case CalculatorSystem.CalculatorOperation.CLEAR:
             break;
         case CalculatorSystem.CalculatorOperationUI.ADD:
-            calculatorMemory.operation = operator;
-            setDisplayOperator();
-            break;
         case CalculatorSystem.CalculatorOperationUI.SUB:
-            calculatorMemory.operation = CalculatorSystem.CalculatorOperation.SUB;
-            setDisplayOperator();
-            break;
         case CalculatorSystem.CalculatorOperationUI.MUL:
-            calculatorMemory.operation = CalculatorSystem.CalculatorOperation.MUL;
-            setDisplayOperator();
-            break;
         case CalculatorSystem.CalculatorOperationUI.DIV:
-            calculatorMemory.operation = CalculatorSystem.CalculatorOperation.DIV;
+            calculatorMemory.operation = CalculatorSystem.CalculatorOperationUIToSystemMapping[operator];
             setDisplayOperator();
             break;
     }
