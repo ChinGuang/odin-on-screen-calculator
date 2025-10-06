@@ -44,6 +44,11 @@ function insertOperator(operator) {
             setDisplayOperator();
             break;
         case CalculatorSystem.CalculatorOperation.CLEAR:
+            calculatorMemory.firstNumber = '';
+            calculatorMemory.operation = undefined;
+            calculatorMemory.secondNumber = '';
+            setDisplayNumber(0);
+            setDisplayOperator();
             break;
         case CalculatorSystem.CalculatorOperationUI.ADD:
         case CalculatorSystem.CalculatorOperationUI.SUB:
