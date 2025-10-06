@@ -12,10 +12,11 @@ const displayOperatorComponent = document.querySelector('#display-operator');
 function insertNumber(num) {
     if (calculatorMemory.operation === undefined) {
         calculatorMemory.firstNumber = (+(calculatorMemory.firstNumber + num)).toString();
+        setDisplayNumber(calculatorMemory.firstNumber);
     } else {
         calculatorMemory.secondNumber = (+(calculatorMemory.secondNumber + num)).toString();
+        setDisplayNumber(calculatorMemory.secondNumber);
     }
-    setDisplayNumber();
 }
 
 function insertOperator(operator) {
@@ -24,6 +25,7 @@ function insertOperator(operator) {
             calculatorMemory.firstNumber = +(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber)) ?? '';
             calculatorMemory.operation = undefined;
             calculatorMemory.secondNumber = ''
+            setDisplayNumber(calculatorMemory.firstNumber);
             setDisplayOperator();
             break;
         case CalculatorSystem.CalculatorOperation.CLEAR:
@@ -32,23 +34,23 @@ function insertOperator(operator) {
         case CalculatorSystem.CalculatorOperationUI.SUB:
         case CalculatorSystem.CalculatorOperationUI.MUL:
         case CalculatorSystem.CalculatorOperationUI.DIV:
+            if (!!calculatorMemory.operation) {
+                calculatorMemory.firstNumber = +(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber)) ?? '';
+                calculatorMemory.secondNumber = ''
+                setDisplayNumber(calculatorMemory.firstNumber);
+            }
             calculatorMemory.operation = CalculatorSystem.CalculatorOperationUIToSystemMapping[operator];
             setDisplayOperator();
             break;
     }
 };
 
-function setDisplayNumber() {
-    if (calculatorMemory.operation === undefined) {
-        displayComponent.textContent = calculatorMemory.firstNumber || 0;
-    } else {
-        displayComponent.textContent = calculatorMemory.secondNumber || 0;
-    }
+function setDisplayNumber(numberStr) {
+    displayComponent.textContent = numberStr || 0;
 }
 
 function setDisplayOperator() {
     displayOperatorComponent.textContent = CalculatorSystem.CalculatorOperationUIMapping[calculatorMemory.operation] ?? '';
-    setDisplayNumber();
 }
 
 const digitButtons = document.querySelectorAll(".digit-button");
