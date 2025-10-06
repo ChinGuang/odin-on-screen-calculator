@@ -34,10 +34,11 @@ function insertNumber(num) {
  * @param {string} operator - The operator input (one of CalculatorSystem.CalculatorOperation or CalculatorSystem.CalculatorOperationUI).
  */
 function insertOperator(operator) {
+    if (operator == CalculatorSystem.CalculatorOperation.EQUAL && calculatorMemory.operation == CalculatorSystem.CalculatorOperation.EQUAL) return;
     switch (operator) {
         case CalculatorSystem.CalculatorOperation.EQUAL:
-            calculatorMemory.firstNumber = +(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber)) ?? '';
-            calculatorMemory.operation = undefined;
+            calculatorMemory.firstNumber = operateFirstNumber();
+            calculatorMemory.operation = CalculatorSystem.CalculatorOperationUI.EQUAL;
             calculatorMemory.secondNumber = ''
             setDisplayNumber(calculatorMemory.firstNumber);
             setDisplayOperator();
@@ -48,8 +49,8 @@ function insertOperator(operator) {
         case CalculatorSystem.CalculatorOperationUI.SUB:
         case CalculatorSystem.CalculatorOperationUI.MUL:
         case CalculatorSystem.CalculatorOperationUI.DIV:
-            if (!!calculatorMemory.operation) {
-                calculatorMemory.firstNumber = +(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber)) ?? '';
+            if (!!calculatorMemory.operation && calculatorMemory.operation !== CalculatorSystem.CalculatorOperationUI.EQUAL) {
+                calculatorMemory.firstNumber = operateFirstNumber();
                 calculatorMemory.secondNumber = ''
                 setDisplayNumber(calculatorMemory.firstNumber);
             }
@@ -76,6 +77,11 @@ function setDisplayNumber(numberStr) {
  */
 function setDisplayOperator() {
     displayOperatorComponent.textContent = CalculatorSystem.CalculatorOperationUIMapping[calculatorMemory.operation] ?? '';
+}
+
+function operateFirstNumber() {
+    const result = CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber);
+    return !!result ? result.toString() : '';
 }
 
 const digitButtons = document.querySelectorAll(".digit-button");
