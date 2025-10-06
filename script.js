@@ -62,7 +62,7 @@ function insertOperator(operator) {
         case CalculatorSystem.CalculatorOperationUI.SUB:
         case CalculatorSystem.CalculatorOperationUI.MUL:
         case CalculatorSystem.CalculatorOperationUI.DIV:
-            if (!!calculatorMemory.operation && calculatorMemory.operation !== CalculatorSystem.CalculatorOperationUI.EQUAL) {
+            if (!!calculatorMemory.operation && calculatorMemory.operation !== CalculatorSystem.CalculatorOperationUI.EQUAL && !calculatorMemory.secondNumber == '') {
                 calculatorMemory.firstNumber = operateFirstNumber();
                 calculatorMemory.secondNumber = ''
                 setDisplayNumber(calculatorMemory.firstNumber);
@@ -84,7 +84,10 @@ function setDisplayNumber(numberStr) {
     if (decimalIndex >= 0 && decimalIndex < numberStr.length - 4) {
         displayComponent.textContent = (+numberStr).toFixed(3);
     } else {
-        displayComponent.textContent = numberStr || 0;
+        if (numberStr == Infinity.toString()) {
+            displayComponent.textContent = "Infinity? Really?"
+        } else
+            displayComponent.textContent = numberStr || 0;
     }
 
 }
