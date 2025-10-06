@@ -33,11 +33,29 @@ const CalculatorOperation = {
     ADD: '+',
     SUB: '-',
     MUL: '*',
-    DIV: '/'
+    DIV: '/',
+    EQUAL: '=',
+    CLEAR: 'CLEAR'
+}
+
+const CalculatorOperationUI = {
+    ADD: '+',
+    SUB: '—',
+    MUL: 'x',
+    DIV: '÷'
+}
+
+const CalculatorOperationUIMapping = {
+    [CalculatorOperation.ADD]: CalculatorOperationUI.ADD,
+    [CalculatorOperation.SUB]: CalculatorOperationUI.SUB,
+    [CalculatorOperation.MUL]: CalculatorOperationUI.MUL,
+    [CalculatorOperation.DIV]: CalculatorOperationUI.DIV,
 }
 
 
 export const CalculatorSystem = {
     operate,
-    CalculatorOperation
+    CalculatorOperation,
+    CalculatorOperationUI,
+    CalculatorOperationUIMapping
 }

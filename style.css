@@ -75,3 +75,8 @@
     width: 100%;
     /* make width constrained so overflow is detectable */
 }
+
+#display-operator {
+    min-width: 64px;
+    padding-left: 8px;
+}
