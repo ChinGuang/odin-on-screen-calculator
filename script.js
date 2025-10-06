@@ -41,7 +41,7 @@ function insertNumber(num) {
  * @param {string} operator - The operator input (one of CalculatorSystem.CalculatorOperation or CalculatorSystem.CalculatorOperationUI).
  */
 function insertOperator(operator) {
-    if (calculatorMemory.firstNumber == Infinity.toString() && operator != "CLEAR") return;
+    if (calculatorMemory.firstNumber == Infinity.toString() && operator !== "CLEAR") return;
     if (operator == CalculatorSystem.CalculatorOperation.EQUAL && calculatorMemory.operation == CalculatorSystem.CalculatorOperation.EQUAL) return;
     switch (operator) {
         case CalculatorSystem.CalculatorOperation.EQUAL:
