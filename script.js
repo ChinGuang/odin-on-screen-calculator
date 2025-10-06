@@ -80,7 +80,13 @@ function insertOperator(operator) {
  * @param {string} numberStr - The number text to render on the display; may be empty or falsy to reset to "0".
  */
 function setDisplayNumber(numberStr) {
-    displayComponent.textContent = numberStr || 0;
+    const decimalIndex = numberStr ? numberStr.indexOf('.') : -1;
+    if (decimalIndex >= 0 && decimalIndex < numberStr.length - 4) {
+        displayComponent.textContent = (+numberStr).toFixed(3);
+    } else {
+        displayComponent.textContent = numberStr || 0;
+    }
+
 }
 
 /**
