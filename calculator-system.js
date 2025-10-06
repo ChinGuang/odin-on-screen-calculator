@@ -42,7 +42,8 @@ const CalculatorOperationUI = {
     ADD: '+',
     SUB: '—',
     MUL: 'x',
-    DIV: '÷'
+    DIV: '÷',
+    EQUAL: '=',
 }
 
 const CalculatorOperationUIMapping = {
@@ -50,6 +51,7 @@ const CalculatorOperationUIMapping = {
     [CalculatorOperation.SUB]: CalculatorOperationUI.SUB,
     [CalculatorOperation.MUL]: CalculatorOperationUI.MUL,
     [CalculatorOperation.DIV]: CalculatorOperationUI.DIV,
+    [CalculatorOperation.EQUAL]: CalculatorOperationUI.EQUAL,
 }
 
 const CalculatorOperationUIToSystemMapping = {
@@ -57,6 +59,7 @@ const CalculatorOperationUIToSystemMapping = {
     [CalculatorOperationUI.SUB]: CalculatorOperation.SUB,
     [CalculatorOperationUI.MUL]: CalculatorOperation.MUL,
     [CalculatorOperationUI.DIV]: CalculatorOperation.DIV,
+    [CalculatorOperationUI.EQUAL]: CalculatorOperation.EQUAL,
 }
 
 

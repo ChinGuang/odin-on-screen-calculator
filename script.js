@@ -34,13 +34,13 @@ function insertNumber(num) {
  * @param {string} operator - The operator input (one of CalculatorSystem.CalculatorOperation or CalculatorSystem.CalculatorOperationUI).
  */
 function insertOperator(operator) {
+    if (CalculatorSystem.CalculatorOperationUIToSystemMapping[operator] == calculatorMemory.operation) return;
     switch (operator) {
         case CalculatorSystem.CalculatorOperation.EQUAL:
             calculatorMemory.firstNumber = operateFirstNumber();
-            calculatorMemory.operation = undefined;
+            calculatorMemory.operation = CalculatorSystem.CalculatorOperationUI.EQUAL;
             calculatorMemory.secondNumber = ''
             setDisplayNumber(calculatorMemory.firstNumber);
-            calculatorMemory.firstNumber = '';
             setDisplayOperator();
             break;
         case CalculatorSystem.CalculatorOperation.CLEAR:
@@ -49,7 +49,7 @@ function insertOperator(operator) {
         case CalculatorSystem.CalculatorOperationUI.SUB:
         case CalculatorSystem.CalculatorOperationUI.MUL:
         case CalculatorSystem.CalculatorOperationUI.DIV:
-            if (!!calculatorMemory.operation) {
+            if (!!calculatorMemory.operation && calculatorMemory.operation !== CalculatorSystem.CalculatorOperationUI.EQUAL) {
                 calculatorMemory.firstNumber = operateFirstNumber();
                 calculatorMemory.secondNumber = ''
                 setDisplayNumber(calculatorMemory.firstNumber);
