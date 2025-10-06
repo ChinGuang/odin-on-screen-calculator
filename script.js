@@ -10,9 +10,10 @@ const displayComponent = document.querySelector("#display-board");
 const displayOperatorComponent = document.querySelector('#display-operator');
 
 /**
- * Appends a digit to the currently edited operand and updates the main display.
- * If no operator is selected, the digit is appended to `calculatorMemory.firstNumber`; otherwise it is appended to `calculatorMemory.secondNumber`.
- * @param {number} num - Digit to append to the active operand (0–9).
+ * Append a digit to the active operand and update the main display.
+ *
+ * If no operator is selected, appends the digit to `calculatorMemory.firstNumber`; otherwise appends to `calculatorMemory.secondNumber`.
+ * @param {number} num - Digit (0–9) to append to the active operand.
  */
 function insertNumber(num) {
     if (calculatorMemory.operation === undefined) {
@@ -60,10 +61,8 @@ function insertOperator(operator) {
 };
 
 /**
- * Update the main calculator display to show the given number string.
- *
- * If `numberStr` is falsy, the display is set to "0".
- * @param {string} numberStr - The number text to render on the display; may be empty or falsy to reset to "0".
+ * Set the calculator's main display to the provided number string.
+ * @param {string} numberStr - The number text to render on the display; if falsy, the display shows "0".
  */
 function setDisplayNumber(numberStr) {
     displayComponent.textContent = numberStr || 0;
