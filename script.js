@@ -9,55 +9,73 @@ const calculatorMemory = {
 const displayComponent = document.querySelector("#display-board");
 const displayOperatorComponent = document.querySelector('#display-operator');
 
+/**
+ * Appends a digit to the currently edited operand and updates the main display.
+ * If no operator is selected, the digit is appended to `calculatorMemory.firstNumber`; otherwise it is appended to `calculatorMemory.secondNumber`.
+ * @param {number} num - Digit to append to the active operand (0–9).
+ */
 function insertNumber(num) {
     if (calculatorMemory.operation === undefined) {
         calculatorMemory.firstNumber = (+(calculatorMemory.firstNumber + num)).toString();
+        setDisplayNumber(calculatorMemory.firstNumber);
     } else {
         calculatorMemory.secondNumber = (+(calculatorMemory.secondNumber + num)).toString();
+        setDisplayNumber(calculatorMemory.secondNumber);
     }
-    setDisplayNumber();
 }
 
+/**
+ * Handle an operator input: evaluate expressions or update the pending operation and displays.
+ *
+ * For EQUAL, evaluates the current expression and stores the result as the new first number, clears the pending operation and second number, and updates the number and operator displays.
+ * For CLEAR, performs no action.
+ * For UI operators (ADD, SUB, MUL, DIV), if an operation is already pending, evaluates the current expression, stores the result as the new first number and clears the second number, then sets the pending operation to the mapped system operation and updates the operator display.
+ *
+ * @param {string} operator - The operator input (one of CalculatorSystem.CalculatorOperation or CalculatorSystem.CalculatorOperationUI).
+ */
 function insertOperator(operator) {
     switch (operator) {
         case CalculatorSystem.CalculatorOperation.EQUAL:
             calculatorMemory.firstNumber = +(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber)) ?? '';
             calculatorMemory.operation = undefined;
             calculatorMemory.secondNumber = ''
+            setDisplayNumber(calculatorMemory.firstNumber);
             setDisplayOperator();
             break;
         case CalculatorSystem.CalculatorOperation.CLEAR:
             break;
         case CalculatorSystem.CalculatorOperationUI.ADD:
-            calculatorMemory.operation = operator;
-            setDisplayOperator();
-            break;
         case CalculatorSystem.CalculatorOperationUI.SUB:
-            calculatorMemory.operation = CalculatorSystem.CalculatorOperation.SUB;
-            setDisplayOperator();
-            break;
         case CalculatorSystem.CalculatorOperationUI.MUL:
-            calculatorMemory.operation = CalculatorSystem.CalculatorOperation.MUL;
-            setDisplayOperator();
-            break;
         case CalculatorSystem.CalculatorOperationUI.DIV:
-            calculatorMemory.operation = CalculatorSystem.CalculatorOperation.DIV;
+            if (!!calculatorMemory.operation) {
+                calculatorMemory.firstNumber = +(CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber)) ?? '';
+                calculatorMemory.secondNumber = ''
+                setDisplayNumber(calculatorMemory.firstNumber);
+            }
+            calculatorMemory.operation = CalculatorSystem.CalculatorOperationUIToSystemMapping[operator];
             setDisplayOperator();
             break;
     }
 };
 
-function setDisplayNumber() {
-    if (calculatorMemory.operation === undefined) {
-        displayComponent.textContent = calculatorMemory.firstNumber || 0;
-    } else {
-        displayComponent.textContent = calculatorMemory.secondNumber || 0;
-    }
+/**
+ * Update the main calculator display to show the given number string.
+ *
+ * If `numberStr` is falsy, the display is set to "0".
+ * @param {string} numberStr - The number text to render on the display; may be empty or falsy to reset to "0".
+ */
+function setDisplayNumber(numberStr) {
+    displayComponent.textContent = numberStr || 0;
 }
 
+/**
+ * Update the operator display element to show the UI label for the currently selected operation.
+ *
+ * If no operation is selected, clears the operator display.
+ */
 function setDisplayOperator() {
     displayOperatorComponent.textContent = CalculatorSystem.CalculatorOperationUIMapping[calculatorMemory.operation] ?? '';
-    setDisplayNumber();
 }
 
 const digitButtons = document.querySelectorAll(".digit-button");

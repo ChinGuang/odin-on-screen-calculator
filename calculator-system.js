@@ -52,10 +52,18 @@ const CalculatorOperationUIMapping = {
     [CalculatorOperation.DIV]: CalculatorOperationUI.DIV,
 }
 
+const CalculatorOperationUIToSystemMapping = {
+    [CalculatorOperationUI.ADD]: CalculatorOperation.ADD,
+    [CalculatorOperationUI.SUB]: CalculatorOperation.SUB,
+    [CalculatorOperationUI.MUL]: CalculatorOperation.MUL,
+    [CalculatorOperationUI.DIV]: CalculatorOperation.DIV,
+}
+
 
 export const CalculatorSystem = {
     operate,
     CalculatorOperation,
     CalculatorOperationUI,
-    CalculatorOperationUIMapping
+    CalculatorOperationUIMapping,
+    CalculatorOperationUIToSystemMapping
 }
