@@ -10,7 +10,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    flex-grow: 3;
+    flex: 3 1 0;
+    min-width: 0;
 }
 
 .row {
@@ -24,7 +25,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    flex-grow: 1;
+    flex: 1 0 0;
 }
 
 .calculator-button {
@@ -56,9 +57,21 @@
     border: 2px solid black;
     font-size: 64px;
     display: flex;
-    justify-content: end;
     align-items: center;
     flex: 1;
     padding-right: 16px;
     border-radius: 4px;
+}
+
+#display-board {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
+    /* puts "..." on the left side */
+    text-align: right;
+    /* keeps digits visually aligned to the right */
+    width: 100%;
+    /* make width constrained so overflow is detectable */
 }
