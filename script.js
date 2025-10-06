@@ -80,7 +80,8 @@ function setDisplayOperator() {
 }
 
 function operateFirstNumber() {
-    return (CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber))?.toString() ?? ''
+    const result = CalculatorSystem.operate(calculatorMemory.operation, calculatorMemory.firstNumber, calculatorMemory.secondNumber);
+    return !!result ? result.toString() : '';
 }
 
 const digitButtons = document.querySelectorAll(".digit-button");
