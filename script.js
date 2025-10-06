@@ -34,7 +34,7 @@ function insertNumber(num) {
  * @param {string} operator - The operator input (one of CalculatorSystem.CalculatorOperation or CalculatorSystem.CalculatorOperationUI).
  */
 function insertOperator(operator) {
-    if (CalculatorSystem.CalculatorOperationUIToSystemMapping[operator] == calculatorMemory.operation) return;
+    if (operator == CalculatorSystem.CalculatorOperation.EQUAL && operator == calculatorMemory.operation) return;
     switch (operator) {
         case CalculatorSystem.CalculatorOperation.EQUAL:
             calculatorMemory.firstNumber = operateFirstNumber();
