@@ -79,3 +79,7 @@
     min-width: 64px;
     padding-left: 8px;
 }
+
+.icon img {
+    width: 32px;
+}
