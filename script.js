@@ -22,8 +22,6 @@ function removeLeadingZero(numStr) {
  */
 function insertNumber(num) {
     if ((calculatorMemory.operation === undefined) && calculatorMemory.firstNumber != Infinity.toString()) {
-        // remove unused zero case checking prefix zero
-        // .05 case
         calculatorMemory.firstNumber = removeLeadingZero(calculatorMemory.firstNumber + num);
         setDisplayNumber(calculatorMemory.firstNumber);
     } else if (calculatorMemory.operation === CalculatorSystem.CalculatorOperation.EQUAL || calculatorMemory.firstNumber == Infinity.toString()) {
@@ -64,8 +62,22 @@ function insertOperator(operator) {
             setDisplayNumber(0);
             setDisplayOperator();
             break;
+        case CalculatorSystem.CalculatorOperation.BACKSPACE:
+            if (calculatorMemory.operation === undefined && calculatorMemory.firstNumber != Infinity.toString()) {
+                calculatorMemory.firstNumber = calculatorMemory.firstNumber.slice(0, calculatorMemory.firstNumber.length - 1) || '';
+                setDisplayNumber(calculatorMemory.firstNumber);
+            } else if (calculatorMemory.operation !== CalculatorSystem.CalculatorOperation.EQUAL && calculatorMemory.firstNumber !== Infinity.toString()) {
+                calculatorMemory.secondNumber = calculatorMemory.secondNumber.slice(0, calculatorMemory.secondNumber.length - 1);
+                setDisplayNumber(calculatorMemory.secondNumber);
+            }
+            break;
         case CalculatorSystem.CalculatorOperation.DOT:
-            if (calculatorMemory.operation == undefined) {
+            if (calculatorMemory.firstNumber == Infinity.toString()) {
+                calculatorMemory.firstNumber = '0.';
+                calculatorMemory.operation = undefined;
+                setDisplayNumber(calculatorMemory.firstNumber);
+                setDisplayOperator();
+            } else if (calculatorMemory.operation == undefined) {
                 if (calculatorMemory.firstNumber.includes('.')) return;
                 calculatorMemory.firstNumber = (calculatorMemory.firstNumber || '0') + '.';
                 setDisplayNumber(calculatorMemory.firstNumber);
@@ -133,8 +145,16 @@ digitButtons.forEach((digitButton) => {
 
 const operatorButtons = document.querySelectorAll(".operator-button");
 operatorButtons.forEach((operatorButton) => {
-    operatorButton.addEventListener("click", (e) => {
-        const operator = e.target.textContent;
-        insertOperator(operator);
-    })
+    if (!!operatorButton.textContent) {
+        operatorButton.addEventListener("click", (e) => {
+            const operator = e.target.textContent;
+            insertOperator(operator);
+        })
+    } else {
+        if (operatorButton.id == CalculatorSystem.CalculatorOperation.BACKSPACE) {
+            operatorButton.addEventListener("click", (e) => {
+                insertOperator(CalculatorSystem.CalculatorOperation.BACKSPACE);
+            })
+        }
+    }
 })

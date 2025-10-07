@@ -36,7 +36,8 @@ const CalculatorOperation = {
     DIV: '/',
     EQUAL: '=',
     CLEAR: 'CLEAR',
-    DOT: '.'
+    DOT: '.',
+    BACKSPACE: 'backspace'
 }
 
 const CalculatorOperationUI = {
