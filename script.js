@@ -65,12 +65,7 @@ function insertOperator(operator) {
             setDisplayOperator();
             break;
         case CalculatorSystem.CalculatorOperation.DOT:
-            if (calculatorMemory.firstNumber == Infinity.toString()) {
-                calculatorMemory.firstNumber = '0.';
-                calculatorMemory.operation = undefined;
-                setDisplayNumber(calculatorMemory.firstNumber);
-                setDisplayOperator();
-            } else if (calculatorMemory.operation == undefined) {
+            if (calculatorMemory.operation == undefined) {
                 if (calculatorMemory.firstNumber.includes('.')) return;
                 calculatorMemory.firstNumber = (calculatorMemory.firstNumber || '0') + '.';
                 setDisplayNumber(calculatorMemory.firstNumber);
