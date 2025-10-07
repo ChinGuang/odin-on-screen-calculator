@@ -21,12 +21,12 @@ function removeLeadingZero(numStr) {
  * @param {number} num - Digit to append to the active operand (0–9).
  */
 function insertNumber(num) {
-    if (calculatorMemory.operation === undefined && calculatorMemory.firstNumber != Infinity.toString()) {
+    if ((calculatorMemory.operation === undefined) && calculatorMemory.firstNumber != Infinity.toString()) {
         // remove unused zero case checking prefix zero
         // .05 case
         calculatorMemory.firstNumber = removeLeadingZero(calculatorMemory.firstNumber + num);
         setDisplayNumber(calculatorMemory.firstNumber);
-    } else if (calculatorMemory.firstNumber == Infinity.toString()) {
+    } else if (calculatorMemory.operation === CalculatorSystem.CalculatorOperation.EQUAL || calculatorMemory.firstNumber == Infinity.toString()) {
         calculatorMemory.firstNumber = num.toString();
         setDisplayNumber(calculatorMemory.firstNumber);
         calculatorMemory.operation = undefined;
