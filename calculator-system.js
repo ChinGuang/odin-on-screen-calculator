@@ -35,7 +35,8 @@ const CalculatorOperation = {
     MUL: '*',
     DIV: '/',
     EQUAL: '=',
-    CLEAR: 'CLEAR'
+    CLEAR: 'CLEAR',
+    DOT: '.'
 }
 
 const CalculatorOperationUI = {
