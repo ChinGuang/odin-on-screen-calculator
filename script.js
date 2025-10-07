@@ -9,16 +9,22 @@ const calculatorMemory = {
 const displayComponent = document.querySelector("#display-board");
 const displayOperatorComponent = document.querySelector('#display-operator');
 
+function removeLeadingZero(numStr) {
+    const leftPart = numStr.split('.')[0];
+    if (leftPart[0] == '0' && leftPart.length > 1) return numStr.slice(1);
+    return numStr;
+}
+
 /**
  * Appends a digit to the currently edited operand and updates the main display.
  * If no operator is selected, the digit is appended to `calculatorMemory.firstNumber`; otherwise it is appended to `calculatorMemory.secondNumber`.
  * @param {number} num - Digit to append to the active operand (0–9).
  */
 function insertNumber(num) {
-
-
     if (calculatorMemory.operation === undefined && calculatorMemory.firstNumber != Infinity.toString()) {
-        calculatorMemory.firstNumber = (+(calculatorMemory.firstNumber + num)).toString();
+        // remove unused zero case checking prefix zero
+        // .05 case
+        calculatorMemory.firstNumber = removeLeadingZero(calculatorMemory.firstNumber + num);
         setDisplayNumber(calculatorMemory.firstNumber);
     } else if (calculatorMemory.firstNumber == Infinity.toString()) {
         calculatorMemory.firstNumber = num.toString();
@@ -26,7 +32,7 @@ function insertNumber(num) {
         calculatorMemory.operation = undefined;
         setDisplayOperator();
     } else {
-        calculatorMemory.secondNumber = (+(calculatorMemory.secondNumber + num)).toString();
+        calculatorMemory.secondNumber = removeLeadingZero(calculatorMemory.secondNumber + num);
         setDisplayNumber(calculatorMemory.secondNumber);
     }
 }
@@ -57,6 +63,22 @@ function insertOperator(operator) {
             calculatorMemory.secondNumber = '';
             setDisplayNumber(0);
             setDisplayOperator();
+            break;
+        case CalculatorSystem.CalculatorOperation.DOT:
+            if (calculatorMemory.firstNumber == Infinity.toString()) {
+                calculatorMemory.firstNumber = '0.';
+                calculatorMemory.operation = undefined;
+                setDisplayNumber(calculatorMemory.firstNumber);
+                setDisplayOperator();
+            } else if (calculatorMemory.operation == undefined) {
+                if (calculatorMemory.firstNumber.includes('.')) return;
+                calculatorMemory.firstNumber = (calculatorMemory.firstNumber || '0') + '.';
+                setDisplayNumber(calculatorMemory.firstNumber);
+            } else {
+                if (calculatorMemory.secondNumber.includes('.')) return;
+                calculatorMemory.secondNumber = (calculatorMemory.secondNumber || '0') + '.';
+                setDisplayNumber(calculatorMemory.secondNumber);
+            }
             break;
         case CalculatorSystem.CalculatorOperationUI.ADD:
         case CalculatorSystem.CalculatorOperationUI.SUB:
