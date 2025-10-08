@@ -172,14 +172,14 @@ document.addEventListener('keydown', (e) => {
             insertOperator(e.key);
             break;
         case '/':
-            insertOperator(CalculatorSystem.CalculatorOperationUIMapping[e.key]);
+            insertOperator(CalculatorSystem.CalculatorOperationUI.DIV);
             break;
         case '*':
         case 'x':
             insertOperator(CalculatorSystem.CalculatorOperationUI.MUL);
             break;
         case '-':
-            insertOperator(CalculatorSystem.CalculatorOperationUI.DIV);
+            insertOperator(CalculatorSystem.CalculatorOperationUI.SUB);
             break;
         case '+':
             insertOperator(CalculatorSystem.CalculatorOperationUI.ADD);
