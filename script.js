@@ -153,3 +153,46 @@ operatorButtons.forEach((operatorButton) => {
         }
     }
 })
+
+document.addEventListener('keydown', (e) => {
+    switch (e.key) {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            insertNumber(e.key);
+            break;
+        case '.':
+            insertOperator(e.key);
+            break;
+        case '/':
+            insertOperator(CalculatorSystem.CalculatorOperationUI.DIV);
+            break;
+        case '*':
+        case 'x':
+            insertOperator(CalculatorSystem.CalculatorOperationUI.MUL);
+            break;
+        case '-':
+            insertOperator(CalculatorSystem.CalculatorOperationUI.SUB);
+            break;
+        case '+':
+            insertOperator(CalculatorSystem.CalculatorOperationUI.ADD);
+            break;
+        case '=':
+        case 'Enter':
+            insertOperator(CalculatorSystem.CalculatorOperationUI.EQUAL);
+            break;
+        case 'Backspace':
+            insertOperator(CalculatorSystem.CalculatorOperation.BACKSPACE);
+            break;
+        case 'Escape':
+            insertOperator(CalculatorSystem.CalculatorOperation.CLEAR);
+            break;
+    }
+})
