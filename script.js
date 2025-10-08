@@ -155,7 +155,6 @@ operatorButtons.forEach((operatorButton) => {
 })
 
 document.addEventListener('keydown', (e) => {
-    console.log(e.key)
     switch (e.key) {
         case '0':
         case '1':
@@ -186,9 +185,14 @@ document.addEventListener('keydown', (e) => {
             insertOperator(CalculatorSystem.CalculatorOperationUI.ADD);
             break;
         case '=':
+        case 'Enter':
             insertOperator(CalculatorSystem.CalculatorOperationUI.EQUAL);
             break;
-        // case 'Backspace':
-        //     insertOperator(CalculatorSystem.CalculatorOperationUI.)
+        case 'Backspace':
+            insertOperator(CalculatorSystem.CalculatorOperation.BACKSPACE);
+            break;
+        case 'Escape':
+            insertOperator(CalculatorSystem.CalculatorOperation.CLEAR);
+            break;
     }
 })
